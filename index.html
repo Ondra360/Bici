@@ -1,3 +1,9 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Výuka hry na bicí v Dobříši pro začátečníky i pokročilé. Technika, rytmus a stále nové songy.">
 <title>Výuka hry na bicí Dobříš</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Hanken+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
@@ -17,7 +23,8 @@
   --accent:#ff6a4a; --accent-fg:#16100e; --brass:#d9a842; --pad-off:#232b2c; color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body);padding-inline:max(16px,4vw);padding-block:0}
+html{-webkit-text-size-adjust:100%;color-scheme:light}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body);padding-inline:max(16px,4vw);padding-block:0;overflow-wrap:break-word}
 .wrap{max-width:1040px;margin-inline:auto}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
@@ -103,9 +110,36 @@ footer{padding-block:28px 40px;display:flex;justify-content:space-between;gap:12
   .row{grid-template-columns:1fr}
   .steps{gap:3px}
 }
+/* mobile: bigger tap targets, 16 steps wrap into two rows of 8, full-width buttons */
+@media (max-width:560px){
+  body{font-size:16px}
+  header{padding-block:22px 20px}
+  .top{margin-bottom:26px}
+  h1{font-size:clamp(3.2rem,19vw,5rem)}
+  .cta{flex-direction:column}
+  .btn{justify-content:center;text-align:center;padding:12px 20px;min-height:52px}
+  .groove{padding:16px 14px}
+  .g-head{flex-direction:column;align-items:stretch;gap:14px}
+  .g-ctl{flex-direction:column;align-items:stretch;gap:12px}
+  .bpm{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:8px}
+  .bpm input{width:100%;min-width:0;height:32px}
+  .play{width:100%;min-height:52px}
+  .row{gap:6px}
+  .steps{grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+  .pad{aspect-ratio:auto;height:44px}
+  .pad:nth-child(4n+1){box-shadow:inset 0 -3px 0 var(--line)}
+  .g-note{font-size:.85rem}
+  section{padding-block:34px}
+  .lesson div{padding:16px}
+  summary{padding-block:2px;min-height:44px;align-items:center}
+  .contact{padding:24px 18px}
+  .contact .btn{width:100%}
+  footer{flex-direction:column}
+}
 @media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
 </style>
-
+</head>
+<body>
 <div class="wrap">
 <header>
   <div class="top">
@@ -274,3 +308,5 @@ footer{padding-block:28px 40px;display:flex;justify-content:space-between;gap:12
   bp.addEventListener("input",function(){bv.textContent=bp.value});
 })();
 </script>
+</body>
+</html>
