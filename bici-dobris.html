@@ -1,0 +1,276 @@
+<title>Výuka hry na bicí Dobříš</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Hanken+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: poster-style hero with a playable 16-step groove, then calm two-column info sections. */
+:root{
+  --bg:#eef0ec; --surface:#fbfbf8; --fg:#14181b; --muted:#56605f; --line:#cfd5cf;
+  --accent:#d3361f; --accent-fg:#fff; --brass:#9a6f12; --pad-off:#dfe4de;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1314; --surface:#171c1d; --fg:#eceee8; --muted:#9aa5a2; --line:#2a3233;
+  --accent:#ff6a4a; --accent-fg:#16100e; --brass:#d9a842; --pad-off:#232b2c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1314; --surface:#171c1d; --fg:#eceee8; --muted:#9aa5a2; --line:#2a3233;
+  --accent:#ff6a4a; --accent-fg:#16100e; --brass:#d9a842; --pad-off:#232b2c; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body);padding-inline:max(16px,4vw);padding-block:0}
+.wrap{max-width:1040px;margin-inline:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;line-height:.92;margin:0;text-wrap:balance}
+.label{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* hero */
+header{padding-block:clamp(28px,6vw,64px) clamp(24px,4vw,44px)}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:clamp(28px,6vw,64px)}
+.top .label b{color:var(--accent);font-weight:500}
+h1{font-weight:900;font-size:clamp(3.6rem,15vw,10.5rem);letter-spacing:-.01em}
+h1 span{display:block;color:var(--accent)}
+.lead{max-width:34em;font-size:clamp(1.05rem,2.2vw,1.3rem);margin:22px 0 0;color:var(--muted)}
+.lead strong{color:var(--fg);font-weight:700}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:4px;font-weight:700;text-decoration:none;border:2px solid var(--fg);cursor:pointer;font-family:var(--body);font-size:1rem;background:transparent;color:var(--fg)}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn:hover{transform:translateY(-1px)}
+
+/* groove machine */
+.groove{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:clamp(16px,3vw,28px);margin-top:clamp(28px,5vw,48px)}
+.g-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.g-head h2{font-size:1.9rem}
+.g-ctl{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.bpm{display:flex;align-items:center;gap:10px;font:500 14px var(--mono)}
+.bpm input{width:130px;accent-color:var(--accent)}
+.bpm output{min-width:3.2ch;text-align:right;font-variant-numeric:tabular-nums}
+.play{min-height:44px;min-width:104px;border-radius:4px;border:0;background:var(--accent);color:var(--accent-fg);font:700 1rem var(--body);cursor:pointer}
+.rows{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:3.6rem 1fr;gap:10px;align-items:center}
+.row .label{font-size:11px}
+.steps{display:grid;grid-template-columns:repeat(16,1fr);gap:4px}
+.pad{aspect-ratio:1/1.15;max-width:100%;border:0;border-radius:3px;background:var(--pad-off);cursor:pointer;padding:0;position:relative}
+.pad:nth-child(4n+1){box-shadow:inset 0 -3px 0 var(--line)}
+.pad[aria-pressed="true"]{background:var(--fg)}
+.row[data-v="snare"] .pad[aria-pressed="true"]{background:var(--accent)}
+.row[data-v="hat"] .pad[aria-pressed="true"]{background:var(--brass)}
+.pad.now{outline:2px solid var(--accent);outline-offset:1px}
+.g-note{margin:14px 0 0;font-size:.9rem;color:var(--muted)}
+
+/* sections */
+section{padding-block:clamp(36px,6vw,72px);border-top:1px solid var(--line)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,5vw,64px)}
+section h2{font-size:clamp(2.2rem,6vw,3.6rem)}
+.split>div>p{color:var(--muted);margin:16px 0 0;max-width:30em}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.list li{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr);gap:8px 20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.list li:first-child{padding-top:0}
+.list h3{font-size:1.5rem;letter-spacing:.01em}
+.list p{margin:0;color:var(--muted)}
+.stick{font:500 15px var(--mono);letter-spacing:.2em;margin-top:6px;color:var(--fg)}
+.stick i{font-style:normal;color:var(--accent)}
+
+.lesson{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:28px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.lesson div{padding:20px;border-right:1px solid var(--line)}
+.lesson div:last-child{border-right:0}
+.lesson .label{display:block;margin-bottom:10px;color:var(--accent)}
+.lesson h3{font-size:1.5rem;margin-bottom:8px}
+.lesson p{margin:0;font-size:.95rem;color:var(--muted)}
+
+details{border-bottom:1px solid var(--line);padding:18px 0}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:500 1.3rem var(--mono);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{margin:10px 0 0;color:var(--muted);max-width:40em}
+
+.contact{background:var(--fg);color:var(--bg);border-radius:6px;padding:clamp(24px,5vw,56px);display:grid;gap:18px}
+.contact h2{font-size:clamp(2.4rem,7vw,4.6rem)}
+.contact h2 span{color:var(--accent)}
+.contact p{margin:0;max-width:34em;opacity:.85}
+.contact .btn{border-color:var(--bg);color:var(--bg);width:max-content;max-width:100%}
+.contact .btn.main{border-color:var(--accent);color:var(--accent-fg)}
+footer{padding-block:28px 40px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .lesson{grid-template-columns:minmax(0,1fr)}
+  .lesson div{border-right:0;border-bottom:1px solid var(--line)}
+  .lesson div:last-child{border-bottom:0}
+  .list li{grid-template-columns:minmax(0,1fr)}
+  .row{grid-template-columns:1fr}
+  .steps{gap:3px}
+}
+@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="top">
+    <span class="label"><b>●</b> Dobříš</span>
+    <span class="label">Začátečníci i pokročilí · bicí souprava</span>
+  </div>
+  <h1>Výuka hry<span>na bicí</span></h1>
+  <p class="lead">Začínáte od nuly, nebo už hrajete a chcete se posunout dál? Tady najdete, <strong>jak kroužek vypadá</strong>, co se na hodinách učí a jak se přihlásit. Vedle techniky se <strong>pořád učíte nové songy</strong>, takže hrajete věci, které vás baví.</p>
+  <div class="cta">
+    <a class="btn main" href="https://www.facebook.com/vyukahrynabicidobris/" target="_blank" rel="noopener">Napsat na Facebooku</a>
+    <a class="btn" href="#jak-to-chodi">Jak hodina vypadá</a>
+  </div>
+
+  <div class="groove" aria-label="Zkušební bicí groove">
+    <div class="g-head">
+      <div>
+        <span class="label">Zkuste si to</span>
+        <h2>První groove</h2>
+      </div>
+      <div class="g-ctl">
+        <label class="bpm" for="bpm">Tempo <input id="bpm" type="range" min="60" max="150" value="96"> <output id="bpmv" for="bpm">96</output> BPM</label>
+        <button class="play" id="play" type="button">▶ Hrát</button>
+      </div>
+    </div>
+    <div class="rows" id="rows"></div>
+    <p class="g-note">Klikejte na čtverečky a skládejte vlastní rytmus. Dole basový buben, uprostřed malý buben, nahoře hi-hat. Zvuk se spustí až po stisku tlačítka.</p>
+  </div>
+</header>
+
+<section id="co-se-naucite">
+  <div class="split">
+    <div>
+      <span class="label">Obsah výuky</span>
+      <h2>Co se naučíte</h2>
+      <p>Od správného držení paliček po náročnější rytmy a nové songy. Začátečník i pokročilý, každý postupuje svým tempem.</p>
+    </div>
+    <ul class="list">
+      <li><div><h3>Držení paliček</h3></div><p>Uvolněný úchop a odskok. Základ, na kterém stojí rychlost i čistota hry.</p></li>
+      <li><div><h3>Rytmus a čtení not</h3></div><p>Čtvrťové, osminové a šestnáctinové hodnoty, počítání a hra s metronomem.</p></li>
+      <li><div><h3>Rudimenty</h3><div class="stick">P L P L · <i>R L R R</i></div></div><p>Základní údery a střídání rukou, třeba paradiddle. Z nich se později skládají breaky a přechody.</p></li>
+      <li><div><h3>Koordinace</h3></div><p>Nezávislá práce rukou a nohou na celé soupravě: basový buben, malý buben, hi-hat, tomy a činely.</p></li>
+      <li><div><h3>Nové songy</h3></div><p>Pořád se učíte další skladby. Hrajete s nahrávkou a rovnou slyšíte, k čemu cvičení je. Songy si můžete vybírat podle toho, co posloucháte.</p></li>
+      <li><div><h3>Pro pokročilé</h3></div><p>Složitější rytmy, rychlejší a čistší hra, fillové přechody, hra v různých stylech a práce na vlastním projevu. Navážeme tam, kde jste.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="jak-to-chodi">
+  <span class="label">Průběh lekce</span>
+  <h2 style="margin-top:10px">Jak hodina vypadá</h2>
+  <div class="lesson">
+    <div><span class="label">1 · Rozehřátí</span><h3>Ruce a rytmus</h3><p>Krátká cvičení na pad, aby se ruce rozpohybovaly.</p></div>
+    <div><span class="label">2 · Technika</span><h3>Nový prvek</h3><p>Jedna věc za hodinu, pomalu a pořádně.</p></div>
+    <div><span class="label">3 · Souprava</span><h3>Groove</h3><p>Nové dovednosti se přenesou na celou soupravu.</p></div>
+    <div><span class="label">4 · Song</span><h3>Nová skladba</h3><p>Zahrajete si k nahrávce a dostanete úkol na doma. Každý čas přibude další song.</p></div>
+  </div>
+</section>
+
+<section id="otazky">
+  <div class="split">
+    <div>
+      <span class="label">Časté otázky</span>
+      <h2>Než začnete</h2>
+    </div>
+    <div>
+      <details><summary>Musím už něco umět?</summary><p>Ne. Začínat se dá od nuly. Pokud už hrajete, hodina se přizpůsobí tomu, co umíte.</p></details>
+      <details><summary>Hraju už nějakou dobu, má smysl přijít?</summary><p>Ano. Výuka je i pro pokročilé. Posunete se v technice, rychlosti a čistotě hry a naučíte se další songy, které vás baví.</p></details>
+      <details><summary>Můžu si vybrat, jaké songy budu hrát?</summary><p>Rádi se na to podíváme. Řekněte, co posloucháte, a společně vybereme skladby, které vás posunou a zároveň baví.</p></details>
+      <details><summary>Musím mít doma bicí?</summary><p>Na začátek stačí cvičný pad a dvě paličky. Soupravu doma nepotřebujete, dokud si nebudete jistí, že vás hra baví.</p></details>
+      <details><summary>Kolik času mám cvičit?</summary><p>Lepší jsou krátká, pravidelná cvičení než jedno dlouhé před hodinou. Zpočátku stačí zhruba deset až dvacet minut několikrát týdně.</p></details>
+      <details><summary>Jak zjistím termíny a cenu?</summary><p>Aktuální termíny, volná místa a cenu vám sdělíme na Facebooku nebo v soukromé zprávě. Stačí se zeptat.</p></details>
+    </div>
+  </div>
+</section>
+
+<section style="border-top:0;padding-top:0">
+  <div class="contact">
+    <span class="label" style="color:inherit;opacity:.7">Přihlášení a dotazy</span>
+    <h2>Pojďte si <span>zahrát</span></h2>
+    <p>Napište nám zprávu na Facebooku. Rádi odpovíme na všechno kolem kroužku, termínů a toho, jak začít.</p>
+    <a class="btn main" href="https://www.facebook.com/vyukahrynabicidobris/" target="_blank" rel="noopener">Výuka hry na bicí Dobříš na Facebooku</a>
+  </div>
+</section>
+
+<footer>
+  <span class="label">Výuka hry na bicí · Dobříš</span>
+  <span class="label">Rytmus je k naučení</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  var ROWS=[
+    {v:"hat",name:"Hi-hat",p:"1010101010101010"},
+    {v:"snare",name:"Malý",p:"0000100000001000"},
+    {v:"kick",name:"Basák",p:"1000001010100000"}
+  ];
+  var grid=ROWS.map(function(r){return r.p.split("").map(Number)});
+  var rowsEl=document.getElementById("rows"),pads=[];
+  ROWS.forEach(function(r,ri){
+    var row=document.createElement("div");row.className="row";row.dataset.v=r.v;
+    var lab=document.createElement("span");lab.className="label";lab.textContent=r.name;
+    var st=document.createElement("div");st.className="steps";
+    pads[ri]=[];
+    for(var i=0;i<16;i++){
+      var b=document.createElement("button");b.type="button";b.className="pad";
+      b.setAttribute("aria-label",r.name+" "+(i+1));
+      b.setAttribute("aria-pressed",grid[ri][i]?"true":"false");
+      (function(ri,i,b){b.addEventListener("click",function(){
+        grid[ri][i]=grid[ri][i]?0:1;b.setAttribute("aria-pressed",grid[ri][i]?"true":"false");
+        if(ctx&&!playing)hit(ri,ctx.currentTime);
+      })})(ri,i,b);
+      st.appendChild(b);pads[ri].push(b);
+    }
+    row.appendChild(lab);row.appendChild(st);rowsEl.appendChild(row);
+  });
+
+  var ctx=null,noiseBuf=null,playing=false,step=0,next=0,timer=null;
+  function ensure(){
+    if(ctx)return;
+    var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    ctx=new AC();
+    noiseBuf=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);
+    var d=noiseBuf.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  }
+  function noise(t,dur,hp,vol){
+    var s=ctx.createBufferSource();s.buffer=noiseBuf;
+    var f=ctx.createBiquadFilter();f.type="highpass";f.frequency.value=hp;
+    var g=ctx.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    s.connect(f);f.connect(g);g.connect(ctx.destination);s.start(t);s.stop(t+dur+.02);
+  }
+  function hit(ri,t){
+    if(!ctx)return;
+    var v=ROWS[ri].v;
+    if(v==="kick"){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(45,t+.12);
+      g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);
+      o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+.32);
+    }else if(v==="snare"){
+      noise(t,.18,1500,.55);
+      var o2=ctx.createOscillator(),g2=ctx.createGain();o2.type="triangle";o2.frequency.value=190;
+      g2.gain.setValueAtTime(.35,t);g2.gain.exponentialRampToValueAtTime(.001,t+.12);
+      o2.connect(g2);g2.connect(ctx.destination);o2.start(t);o2.stop(t+.14);
+    }else{noise(t,.05,7000,.3)}
+  }
+  function mark(i){
+    pads.forEach(function(r){r.forEach(function(b,k){b.classList.toggle("now",k===i)})});
+  }
+  function tick(){
+    var bpm=+document.getElementById("bpm").value,len=60/bpm/4;
+    while(next<ctx.currentTime+.12){
+      for(var r=0;r<ROWS.length;r++)if(grid[r][step])hit(r,next);
+      (function(s,t){setTimeout(function(){if(playing)mark(s)},Math.max(0,(t-ctx.currentTime)*1000))})(step,next);
+      next+=len;step=(step+1)%16;
+    }
+  }
+  var btn=document.getElementById("play");
+  btn.addEventListener("click",function(){
+    ensure();if(!ctx)return;
+    if(ctx.state==="suspended")ctx.resume();
+    if(playing){playing=false;clearInterval(timer);mark(-1);btn.textContent="▶ Hrát";return}
+    playing=true;step=0;next=ctx.currentTime+.05;timer=setInterval(tick,25);btn.textContent="■ Stop";
+  });
+  var bp=document.getElementById("bpm"),bv=document.getElementById("bpmv");
+  bp.addEventListener("input",function(){bv.textContent=bp.value});
+})();
+</script>
